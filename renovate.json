@@ -1,0 +1,13 @@
+{
+  "extends": ["config:recommended"],
+  "regexManagers": [
+    {
+      "fileMatch": ["^charts/.+-apps/values\\.yaml$"],
+      "matchStrings": [
+        "repoURL:\\s+(?<registryUrl>https?://[^\\s]+)[\\s\\S]{0,200}?\\n\\s+chart:\\s+(?<depName>[^\\s]+)[\\s\\S]{0,200}?\\n\\s+targetRevision:\\s+(?<currentValue>[^\\s]+)"
+      ],
+      "datasourceTemplate": "helm"
+    }
+  ]
+}
+

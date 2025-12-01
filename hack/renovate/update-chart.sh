@@ -14,7 +14,7 @@ if [ -z "$CHART_DIR" ] || [ -z "$DEP_NAME" ] || [ -z "$NEW_VERSION" ] || [ -z "$
   exit 1
 fi
 
-cd "$CHART_DIR"
+cd "charts/$CHART_DIR"
 
 CURRENT_VERSION=$(yq e '.version' Chart.yaml)
 if [ "$UPDATE_TYPE" = "major" ]; then

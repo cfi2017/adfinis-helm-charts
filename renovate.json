@@ -4,7 +4,7 @@
     {
       "fileMatch": ["^charts/.+-apps/values\\.yaml$"],
       "matchStrings": [
-        "repoURL:\\s+(?<registryUrl>https?://[^\\s]+)[\\s\\S]{0,200}?\\n\\s+chart:\\s+(?<depName>[^\\s]+)[\\s\\S]{0,200}?\\n\\s+targetRevision:\\s+(?<currentValue>[^\\s]+)"
+        "# -- Repo URL[\\s\\S]*?repoURL:\\s+[\"']?(?<registryUrl>(?:https?://|oci://|ghcr\\.io/)[^\\s\"']+)[\"']?[\\s\\S]*?chart:\\s+[\"']?(?<depName>[^\\s\"']+)[\"']?[\\s\\S]*?targetRevision:\\s+[\"']?(?<currentValue>[^\\s\"']+)[\"']?"
       ],
       "datasourceTemplate": "helm"
     }
@@ -21,6 +21,12 @@
         "fileFilters": ["charts/**"],
         "executionMode": "branch"
       }
+    },
+    {
+      "description": "Ignore git-based charts (not Helm repos)",
+      "matchDatasources": ["helm"],
+      "matchPackagePatterns": ["^dexK8sAuthenticator$"],
+      "enabled": false
     }
   ],
   "prBodyTemplate": "{{{header}}}{{{table}}}{{{notes}}}{{{changelogs}}}\n\n---\n\n# Checklist\n\n* [x] This PR contains a description of the changes I'm making\n* [x] I updated the version in Chart.yaml\n* [x] I updated the changelog with an `artifacthub.io/changes` annotation in `Chart.yaml`\n* [x] I updated applicable README.md files using `pre-commit run`\n* [ ] I documented any high-level concepts I'm introducing in `docs/`\n* [ ] CI is currently green and this is ready for review\n* [ ] I am ready to test changes after they are applied and released"

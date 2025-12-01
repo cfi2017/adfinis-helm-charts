@@ -1,9 +1,5 @@
 {
   "extends": ["config:recommended"],
-  "allowedPostUpgradeCommands": [
-    "^bash hack/renovate/update-chart\\.sh .+$",
-    "^pre-commit run .+$"
-  ],
   "regexManagers": [
     {
       "fileMatch": ["^charts/.+-apps/values\\.yaml$"],

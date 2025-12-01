@@ -8,6 +8,20 @@
       ],
       "datasourceTemplate": "helm"
     }
-  ]
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["helm"],
+      "matchFileNames": ["charts/*-apps/values.yaml"],
+      "postUpgradeTasks": {
+        "commands": [
+          "bash hack/renovate/update-chart.sh {{{parentDir}}} {{{depName}}} {{{newVersion}}} {{{updateType}}} {{{isSecurityUpdate}}}",
+          "pre-commit run --files {{{parentDir}}}/Chart.yaml {{{parentDir}}}/values.yaml {{{parentDir}}}/README.md || true"
+        ],
+        "fileFilters": ["charts/**"],
+        "executionMode": "branch"
+      }
+    }
+  ],
+  "prBodyTemplate": "{{{header}}}{{{table}}}{{{notes}}}{{{changelogs}}}\n\n---\n\n# Checklist\n\n* [x] This PR contains a description of the changes I'm making\n* [x] I updated the version in Chart.yaml\n* [x] I updated the changelog with an `artifacthub.io/changes` annotation in `Chart.yaml`\n* [x] I updated applicable README.md files using `pre-commit run`\n* [ ] I documented any high-level concepts I'm introducing in `docs/`\n* [ ] CI is currently green and this is ready for review\n* [ ] I am ready to test changes after they are applied and released"
 }
-
